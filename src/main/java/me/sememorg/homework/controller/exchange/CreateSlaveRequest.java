@@ -1,5 +1,7 @@
 package me.sememorg.homework.controller.exchange;
 
+import java.math.BigDecimal;
+
 public class CreateSlaveRequest {
     private String name;
     private String race;
@@ -7,6 +9,11 @@ public class CreateSlaveRequest {
     private Integer age;
     private Integer weight;
     private Integer height;
+    private BigDecimal cost;
+
+    public BigDecimal getCost() {
+        return cost;
+    }
 
     public String getName() {
         return name;

@@ -1,9 +1,7 @@
 package me.sememorg.homework.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class Slave {
@@ -18,22 +16,45 @@ public class Slave {
     private Integer age;
     private Integer weight;
     private Integer height;
+    private BigDecimal cost;
+
+    @OneToOne
+    private Master master;
 
     public Slave() {
     }
 
-    public Slave(Integer id, String name, String race, String gender, Integer age, Integer weight, Integer height) {
-        this(name, race,gender, age, weight, height);
+    public Slave(Integer id, String name, String race, String gender, Integer age, Integer weight, Integer height, BigDecimal cost) {
+        this(name, race,gender, age, weight, height, cost);
         this.id = id;
     }
 
-    public Slave(String name, String race, String gender, Integer age, Integer weight, Integer height) {
+    public Slave(String name, String race, String gender, Integer age, Integer weight, Integer height, BigDecimal cost) {
         this.name = name;
         this.race = race;
         this.gender = gender;
         this.age = age;
         this.weight = weight;
         this.height = height;
+        this.cost = cost;
+    }
+
+
+    public Master getMaster() {
+        return master;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
+    }
+
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
     public String getName() {

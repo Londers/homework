@@ -17,12 +17,12 @@ public class SlaveController {
     @Autowired
     private SlaveService slaveService;
 
-    @GetMapping(value= "/get/{id}")
+    @GetMapping(value= "/{id}")
     public Optional<Slave> getSlave(@PathVariable Integer id) {
         return slaveService.readSlave(id);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/")
     public ResponseEntity<Slave> postSlave(@RequestBody CreateSlaveRequest request) {
         Slave slave = slaveService.createSlave(new Slave(
                 request.getName(),
@@ -30,11 +30,12 @@ public class SlaveController {
                 request.getGender(),
                 request.getAge(),
                 request.getWeight(),
-                request.getHeight()));
+                request.getHeight(),
+                request.getCost()));
         return new ResponseEntity<>(slave, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{id}")
+    @PutMapping(value = "/{id}")
     public Slave putSlave(@RequestBody Slave slave, @PathVariable("id") Integer id) {
         Slave newSlave = new Slave(
                 id,
@@ -43,11 +44,12 @@ public class SlaveController {
                 slave.getGender(),
                 slave.getAge(),
                 slave.getWeight(),
-                slave.getHeight());
+                slave.getHeight(),
+                slave.getCost());
         return slaveService.updateSlave(newSlave);
     }
 
-    @DeleteMapping(value= "/delete/{id}")
+    @DeleteMapping(value= "/{id}")
     public void deleteSlave(@PathVariable Integer id) {
         slaveService.deleteSlave(id);
     }
