@@ -5,6 +5,7 @@ import me.sememorg.homework.repository.SlaveRepository;
 import me.sememorg.homework.service.SlaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class SlaveServiceImpl implements SlaveService {
 
     @Override
     public Slave createSlave(Slave slave) {
-        Slave newSlave = slaveRepository.saveAndFlush(slave);
+        Slave newSlave = slaveRepository.save(slave);
         return newSlave;
     }
 
@@ -27,7 +28,10 @@ public class SlaveServiceImpl implements SlaveService {
 
     @Override
     public Slave updateSlave(Slave slave) {
-        return slaveRepository.saveAndFlush(slave);
+        if (!slaveRepository.existsById(slave.getId()))
+            return null;
+
+        return slaveRepository.save(slave);
     }
 
     @Override

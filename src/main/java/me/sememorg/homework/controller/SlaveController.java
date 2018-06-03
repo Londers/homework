@@ -1,5 +1,6 @@
 package me.sememorg.homework.controller;
 
+import me.sememorg.homework.controller.exchange.CreateSlaveRequest;
 import me.sememorg.homework.model.Slave;
 import me.sememorg.homework.service.SlaveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +17,34 @@ public class SlaveController {
     @Autowired
     private SlaveService slaveService;
 
-    @GetMapping(value= "/{id}")
+    @GetMapping(value= "/get/{id}")
     public Optional<Slave> getSlave(@PathVariable Integer id) {
         return slaveService.readSlave(id);
     }
 
-    @PostMapping
-    public ResponseEntity<Slave> postSlave() {
-        Slave slave = slaveService.createSlave(new Slave());
+    @PostMapping(value = "/create")
+    public ResponseEntity<Slave> postSlave(@RequestBody CreateSlaveRequest request) {
+        Slave slave = slaveService.createSlave(new Slave(
+                request.getName(),
+                request.getRace(),
+                request.getGender(),
+                request.getAge(),
+                request.getWeight(),
+                request.getHeight()));
         return new ResponseEntity<>(slave, HttpStatus.OK);
     }
 
-    @PutMapping
-    public Slave putSlave(@RequestBody Slave Slave) {
-        return slaveService.updateSlave(Slave);
+    @PutMapping(value = "/update/{id}")
+    public Slave putSlave(@RequestBody Slave slave, @PathVariable("id") Integer id) {
+        Slave newSlave = new Slave(
+                id,
+                slave.getName(),
+                slave.getRace(),
+                slave.getGender(),
+                slave.getAge(),
+                slave.getWeight(),
+                slave.getHeight());
+        return slaveService.updateSlave(newSlave);
     }
 
     @DeleteMapping(value= "/delete/{id}")

@@ -22,14 +22,18 @@ public class Slave {
     public Slave() {
     }
 
-    public Slave(String name, String race, String gender, Integer age, Integer weight, Integer height, Integer id) {
+    public Slave(Integer id, String name, String race, String gender, Integer age, Integer weight, Integer height) {
+        this(name, race,gender, age, weight, height);
+        this.id = id;
+    }
+
+    public Slave(String name, String race, String gender, Integer age, Integer weight, Integer height) {
         this.name = name;
         this.race = race;
         this.gender = gender;
         this.age = age;
         this.weight = weight;
         this.height = height;
-        this.id = id;
     }
 
     public String getName() {
